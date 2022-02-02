@@ -1,0 +1,22 @@
+{
+  "name": "qiankun-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "qiankun": "^2.6.3"
+  },
+  "scripts": {
+    "dev:base": "cd ./base && yarn dev",
+    "dev:vue": "cd ./micro-apps/vue-spa && yarn serve",
+    "dev:react": "cd ./micro-apps/react-spa-1 && yarn serve"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "pd-js-config": "^0.3.5",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0",
+    "webpack-merge": "^5.8.0"
+  }
+}
