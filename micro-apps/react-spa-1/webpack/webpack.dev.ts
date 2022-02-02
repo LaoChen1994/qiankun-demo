@@ -1,5 +1,4 @@
 import * as path from "path";
-import * as webpack from "webpack";
 import { merge } from "webpack-merge";
 import baseConfig from "./webpack.common";
 import HtmlWebpackPlugin from "html-webpack-plugin";
