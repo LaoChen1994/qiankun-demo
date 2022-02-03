@@ -3,13 +3,13 @@ import { merge } from "webpack-merge";
 import baseConfig from "./webpack.common";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
-import "webpack-dev-server"
+import "webpack-dev-server";
+import webpack from "webpack";
 
 const config = merge(baseConfig, {
-  mode: "production",
+  mode: "development",
   entry: path.resolve(__dirname, "../src/index.tsx"),
   devtool: "source-map",
-
   // @ts-ignore
   devServer: {
     port: 9000,
@@ -25,6 +25,7 @@ const config = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 });
 

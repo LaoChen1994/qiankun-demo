@@ -8,10 +8,19 @@ const config: webpack.Configuration = {
         test: /.(m?js|jsx?)$/,
         exclude: /node_modules/,
         use: [
+          "thread-loader",
           {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: [
+                "@babel/preset-env",
+                [
+                  "@babel/preset-react",
+                  {
+                    runtime: "automatic",
+                  },
+                ],
+              ],
               cacheDirectory: true,
             },
           },
@@ -21,12 +30,18 @@ const config: webpack.Configuration = {
         test: /.tsx?/,
         exclude: /node_modules/,
         use: [
+          "thread-loader",
           {
             loader: "babel-loader",
             options: {
               presets: [
                 "@babel/preset-env",
-                "@babel/preset-react",
+                [
+                  "@babel/preset-react",
+                  {
+                    runtime: "automatic",
+                  },
+                ],
                 [
                   "@babel/preset-typescript",
                   {
@@ -40,12 +55,12 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.css/,
-        use: ["style-loader", "css-loader"],
+        use: ["thread-loader", "style-loader", "css-loader"],
       },
       {
         test: /\.s(a|c)ss/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
+        use: ["thread-loader", "style-loader", "css-loader", "sass-loader"],
+      },
     ],
   },
   cache: true,
@@ -54,18 +69,26 @@ const config: webpack.Configuration = {
     library: "ReactMicroApp",
     libraryTarget: "umd",
   },
+  plugins: [
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 35,
+    }),
+    //设定最小分片条件
+    new webpack.optimize.MinChunkSizePlugin({
+      minChunkSize: 100,
+    }),
+  ],
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: "async",
       cacheGroups: {
         commons: {
-          name: "commons",
-          chunks: "initial",
-          minChunks: 2
-        }
-      }
+          name: "common",
+        },
+      },
     },
-  }
+  },
 };
 
 export default config;

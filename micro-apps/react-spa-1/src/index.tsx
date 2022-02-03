@@ -1,14 +1,14 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import Components from "./routers";
 
 const isMicroApp = window.__POWERED_BY_QIANKUN__;
 let instance: Element | null = null;
 
 export function render(props: any) {
   const { container } = props;
+
   ReactDOM.render(
-    <App />,
+    <Components />,
     container ? container.querySelector("#app") : document.querySelector("#app")
   );
 }
